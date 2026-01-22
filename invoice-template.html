@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><?= invoice.number ?></title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      margin: 40px;
+      color: #333;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      margin: 0; /* removes the default title margin */
+      padding: 0;
+      font-size: 36px;
+    }
+
+    .invoice-meta {
+      text-align: right;
+      font-size: 14px;
+    }
+
+    .invoice-meta div {
+      margin: 0; /* consistent height */
+      padding: 0;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    .bank-details, .party-details {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .party-details td, .bank-details td {
+      vertical-align: top;
+    }
+    table.items {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table.items th,
+    table.items td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+
+    /* Zarovnání sloupců */
+    table.items td:nth-child(1),  /* Description */
+    table.items th:nth-child(1) {
+      text-align: left;
+    }
+
+    .note {
+      font-size: 10px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>INVOICE</h1>
+  </div>
+  <div class="invoice-meta">
+    <div><strong>Invoice Number:</strong> <?= invoice.number ?></div>
+    <?!= invoice.purchaseOrder ?>
+    <div><strong>Issue Date:</strong> <?= invoice.issue_date ?></div>
+    <div><strong>Due Date:</strong> <?= invoice.due_date ?></div>
+  </div>
+</div>
+
+<section class="section">
+  <table class="party-details">
+    <tr>
+      <td style="width: 50%;">
+        <strong>Supplier:</strong><br>
+        <?= supplier.name ?><br>
+        <?= supplier.email ?><br>
+        <?!= supplier.address ?><br>
+        <?!= supplier.vat ?>
+      </td>
+      <td style="width: 50%;">
+        <strong>Customer:</strong><br>
+        <?= customer.name ?><br>
+        <?!= customer.address ?><br>
+        <?!= customer.vat ?>
+      </td>
+    </tr>
+  </table>
+</section>
+
+<section class="section">
+  <table class="items">
+    <tr>
+      <th>Description</th>
+      <th>Quantity</th>
+      <th>Unit Price [<?= invoice.currency ?>]</th>
+      <th>Total [<?= invoice.currency ?>]</th>
+    </tr>
+    <?!= items ?>
+    <tr>
+      <td colspan="3" style="border: none;"></td>
+      <td><b><?= invoice.total ?></b></td>
+    </tr>
+  </table>
+</section>
+
+<section class="section">
+  <table class="bank-details">
+    <tr>
+      <td>
+        <strong>Bank Details:</strong><br>
+        Bank Name: <?= bank.name ?><br>
+        IBAN: <?= bank.iban ?><br>
+        SWIFT: <?= bank.swift ?><br>
+        Account Owner: <?= bank.owner ?>
+      </td>
+    </tr>
+  </table>
+</section>
+
+<section class="note">
+  <strong>Note:</strong><br>
+  VAT not charged according to the reverse charge mechanism pursuant to Article 44 and 196 of Directive 2006/112/EC.<br>
+  The customer is liable to account for VAT.
+</section>
+
+</body>
+</html>
