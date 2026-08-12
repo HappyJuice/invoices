@@ -9,7 +9,7 @@ I use this project to generate all my invoices for work I have done.
 ### Invoices sheet
 
 The Invoices sheet consists of the following columns:
- - **Invoice Number** is my reference number for the invoice, it's generated automatically using this formula: `=IF(ISBLANK(B2); ""; YEAR(E2) & "_" & LEFT(UPPER(B2); 2) & "_" & TEXT(COUNTIFS(B$2:B2; B2; ARRAYFORMULA(YEAR(E$2:E2)); YEAR(E2)); "00"))` which generates `YYYY_CC_NN`, where **YYYY** is the year, **CC** are the first two letters of the client name, and **NN** is the order number of the invoice for the given partner in the given year.
+ - **Invoice Number** is my reference number for the invoice, it's generated automatically using this formula: `=IF(ISBLANK(B15); ""; YEAR(E15) & "_" & LEFT(UPPER(B15); 2) & "_" & TEXT(SUMPRODUCT((LEFT(UPPER(B$2:B15); 2)=LEFT(UPPER(B15); 2)) * (YEAR(E$2:E15)=YEAR(E15)));"00"))` which generates `YYYY_CC_NN`, where **YYYY** is the year, **CC** are the first two letters of the client name, and **NN** is the order number of the invoice for the given **NN** shortcut in the given year.
  - **Client Name** is the name of the client, to be filled by the user
  - **Client Address** is the address of the client, to be filled by the user; multi-line input is expected (street, city, country)
  - **Client VAT ID** is the VAT ID of the client, to be filled by the user; it can be multi-line (eg. when using both international and national IDs)
