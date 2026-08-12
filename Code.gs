@@ -30,7 +30,7 @@ function generateInvoiceOnCheck(e) {
   // Parse multi-line strings
   const productList = products.toString().split('\n');
   const quantityList = quantities.toString().split('\n').map(Number);
-  const priceList = unitPrices.toString().split('\n').map(Number);
+  const priceList = unitPrices.toString().split('\n').map(value => Number(value.replace(',', '.')));
 
   let itemsHtml = '';
 
